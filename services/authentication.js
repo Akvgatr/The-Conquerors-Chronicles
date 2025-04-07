@@ -1,28 +1,61 @@
-const JWT=require("jsonwebtoken");
+// const JWT=require("jsonwebtoken");
 
-const secret="alligatr"
+// const secret="alligatr"
 
-function createTokenForUser(user){
+// function createTokenForUser(user){
 
-const payload=
-{
-_id:user.id,
-email:user.email,
-profileImageURL:user.profileImageURL,
-role:user.role
+// const payload=
+// {
+// _id:user.id,
+// email:user.email,
+// profileImageURL:user.profileImageURL,
+// role:user.role
+// }
+// const token = JWT.sign(payload,secret);
+// return token
+// }
+
+// function validateToken(token){
+
+//     const payload=JWT.verify(token, secret)
+//     return payload;
+// }
+
+
+// module.exports={
+// createTokenForUser,validateToken
+
+// }
+
+
+
+const JWT = require("jsonwebtoken");
+require("dotenv").config(); // make sure this line is at the top!
+
+const secret = process.env.JWT_SECRET;
+
+if (!secret) {
+  throw new Error("JWT_SECRET is not defined in environment variables!");
 }
-const token = JWT.sign(payload,secret);
-return token
+
+function createTokenForUser(user) {
+  const payload = {
+    _id: user.id,
+    email: user.email,
+    profileImageURL: user.profileImageURL,
+    role: user.role,
+  };
+  const token = JWT.sign(payload, secret, { expiresIn: "1h" }); // optional: add expiry
+  return token;
 }
 
-function validateToken(token){
-
-    const payload=JWT.verify(token, secret)
-    return payload;
+function validateToken(token) {
+  const payload = JWT.verify(token, secret);
+  return payload;
 }
 
+module.exports = {
+  createTokenForUser,
+  validateToken,
+};
 
-module.exports={
-createTokenForUser,validateToken
-
-}

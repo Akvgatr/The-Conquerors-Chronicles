@@ -1,5 +1,8 @@
 const express = require("express");
 const path = require("path");
+
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 
 const userRoute = require("./routers/user");
@@ -11,15 +14,17 @@ const { checkForAuthenticationCookie, requireUser } = require("./middlewares/aut
 const Blog = require('./models/blog');
 
 const app = express();
-const PORT = 8000;
+// const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // mongoose.connect("mongodb://localhost:27017/bloggatr").then(() => console.log("MongoDB connected"));
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/bloggatr")
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
 
 
 
+
+// mongoose.connect('mongodb+srv://ghostridefantom:bXmMhnncA9ckJ8p7@cluster0.dlrzbbj.mongodb.net/bloggatr?retryWrites=true&w=majority');
+
+mongoose.connect(process.env.MONGODB_URI);
 
 
 
