@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .profile-container img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        .blog-card {
+            border-top: 1px solid #ccc;
+            margin-top: 15px;
+            padding-top: 10px;
+        }
+        .blog-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Welcome, <%= user.fullName %></h2>
+        <img src="<%= user.profileImageURL %>" alt="Profile Image" />
+
+        <p><strong>Email:</strong> <%= user.email %></p>
+
+        <h3>Change Profile Image</h3>
+        <form method="POST" enctype="multipart/form-data" action="/user/profile">
+            <div class="form-group">
+                <input type="file" name="profileImage" required />
+            </div>
+            <div class="form-group">
+                <button type="submit">Upload</button>
+            </div>
+        </form>
+
+        <h3>Your Blogs</h3>
+        <% if (blogs && blogs.length > 0) { %>
+            <% blogs.forEach(blog => { %>
+                <div class="blog-card">
+                    <h4><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h4>
+                    
+                    <% if (blog.coverImageURL) { %>
+                        <img src="<%= blog.coverImageURL %>" alt="Blog Image" />
+                    <% } %>
+
+                    <p><%= blog.content ? blog.content.substring(0, 100) + "..." : "No content available." %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No blogs yet.</p>
+        <% } %>
+    </div>
+</body>
+</html>

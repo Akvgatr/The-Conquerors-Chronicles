@@ -1,0 +1,281 @@
+<style>
+  :root {
+    --roman-red: #c62828;
+    --roman-red-dark: #8B0000;
+    --roman-gold: #FFD700;
+    --roman-gold-hover: #FFC107;
+    --roman-cream: #FFF8E7;
+    --roman-dark: #1A0000;
+    --roman-light: #F5F2E9;
+    --roman-border: rgba(255, 215, 0, 0.3);
+  }
+  
+  .roman-navbar {
+    background-color: var(--roman-dark);
+    padding: 0.8rem 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    font-family: 'Cinzel', serif;
+    position: relative;
+    border-bottom: 1px solid var(--roman-border);
+    background-image: linear-gradient(to right, var(--roman-dark), rgba(138, 3, 3, 0.8), var(--roman-dark));
+  }
+  
+  .roman-navbar .navbar-brand {
+    color: var(--roman-gold);
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 0.5rem 1rem;
+    margin-right: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+  }
+  
+  .roman-navbar .brand-icon {
+    margin-right: 10px;
+    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+  }
+  
+  .roman-navbar .navbar-brand::before,
+  .roman-navbar .navbar-brand::after {
+    content: "•";
+    color: var(--roman-gold);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    opacity: 0.8;
+  }
+  
+  .roman-navbar .navbar-brand::before {
+    content: "◆";
+    left: -5px;
+  }
+  
+  .roman-navbar .navbar-brand::after {
+    content: "◆";
+    right: -5px;
+  }
+  
+  .roman-navbar .nav-link {
+    color: var(--roman-cream);
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    margin: 0 0.3rem;
+    transition: all 0.3s ease;
+    position: relative;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .roman-navbar .nav-link:hover,
+  .roman-navbar .nav-link.active {
+    color: var(--roman-gold);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  }
+  
+  .roman-navbar .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--roman-gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  
+  .roman-navbar .nav-link:hover::after,
+  .roman-navbar .nav-link.active::after {
+    width: 70%;
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+  }
+  
+  .roman-navbar .dropdown-menu {
+    background-color: var(--roman-dark);
+    border: 1px solid var(--roman-gold);
+    border-radius: 0;
+    margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, var(--roman-dark), rgba(50, 0, 0, 0.9));
+  }
+  
+  .roman-navbar .dropdown-item {
+    color: var(--roman-cream);
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    font-family: 'Trajan Pro', 'Times New Roman', serif;
+  }
+  
+  .roman-navbar .dropdown-item:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: var(--roman-gold);
+    padding-left: 1.8rem;
+  }
+  
+  .roman-navbar .dropdown-item::before {
+    content: "→";
+    position: absolute;
+    left: 10px;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .roman-navbar .dropdown-item:hover::before {
+    content: "→";
+    opacity: 1;
+  }
+  
+  .roman-navbar .navbar-toggler {
+    border: 1px solid var(--roman-gold);
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(255, 215, 0, 0.1);
+  }
+  
+  .roman-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 215, 0, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  
+  .roman-alert {
+    border-left: 4px solid var(--roman-red);
+    background-color: rgba(198, 40, 40, 0.1);
+    color: var(--roman-dark);
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 0;
+    font-family: 'Lora', serif;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .roman-alert::before {
+    content: "!";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.1;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+  }
+  
+  /* Decorative elements */
+  .nav-decoration {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-image: linear-gradient(to right, transparent, var(--roman-gold), transparent);
+    opacity: 0.7;
+  }
+  
+  /* Roman-style decorative elements */
+  .roman-navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--roman-red), transparent);
+    opacity: 0.8;
+  }
+  
+  .roman-column-left, .roman-column-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 70%;
+    width: 10px;
+    background-color: var(--roman-red-dark);
+    opacity: 0.7;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+  }
+  
+  .roman-column-left {
+    left: 10px;
+  }
+  
+  .roman-column-right {
+    right: 10px;
+  }
+  
+  .container-fluid {
+    position: relative;
+    z-index: 1;
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600;700&display=swap');
+</style>
+
+<nav class="navbar navbar-expand-lg roman-navbar">
+  <div class="roman-column-left"></div>
+  <div class="roman-column-right"></div>
+  
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      IMPERIAL SCROLL
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/">The Empire</a>
+        </li>
+
+        <% if (locals.user) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/profile">Your Legion</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/blog/add-new">New Conquest</a>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link" href="/user/search">Scout Allies</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <%= user.fullName %>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/user/logout">Retreat</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/signup">Join The Legion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/signin">Enter The Legion</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-decoration"></div>
+</nav>
+
+<% if (locals.error){ %>
+  <div class="alert roman-alert" role="alert">
+    <%= locals.error %>
+  </div>
+<% } %>

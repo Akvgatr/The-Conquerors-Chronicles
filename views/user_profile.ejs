@@ -1,0 +1,843 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+
+    <title>Roman Chronicle - User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    body {
+      font-family: 'Lora', serif;
+      background: linear-gradient(135deg, #3E2723, #1A0000);
+      color: var(--roman-cream);
+      padding: 0;
+      margin: 0;
+    }
+    
+    /* Roman-styled profile container */
+    .user-profile {
+      text-align: center;
+      background-color: rgba(26, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 2rem auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      position: relative;
+    }
+    
+    /* Add Roman decorative corners */
+    .corner {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-style: solid;
+      border-color: var(--roman-gold);
+      opacity: 0.6;
+    }
+    
+    .corner-top-left {
+      top: 10px;
+      left: 10px;
+      border-width: 3px 0 0 3px;
+      border-radius: 5px 0 0 0;
+    }
+    
+    .corner-top-right {
+      top: 10px;
+      right: 10px;
+      border-width: 3px 3px 0 0;
+      border-radius: 0 5px 0 0;
+    }
+    
+    .corner-bottom-left {
+      bottom: 10px;
+      left: 10px;
+      border-width: 0 0 3px 3px;
+      border-radius: 0 0 0 5px;
+    }
+    
+    .corner-bottom-right {
+      bottom: 10px;
+      right: 10px;
+      border-width: 0 3px 3px 0;
+      border-radius: 0 0 5px 0;
+    }
+    
+    /* Continue with the rest of your styling but with Roman theme */
+    .user-profile img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--roman-gold);
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .user-profile h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--roman-gold);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    
+    .blog-list {
+      margin-top: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .blog-list h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--roman-gold);
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .blog-list h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--roman-gold), transparent);
+    }
+    
+    .blog-item {
+      background-color: rgba(26, 0, 0, 0.7);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      position: relative;
+    }
+    
+    .blog-item h4 a {
+      color: var(--roman-gold);
+      font-family: 'Cinzel', serif;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .blog-item h4 a:hover {
+      color: var(--roman-cream);
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    }
+    
+    .blog-item img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+
+
+
+
+        :root {
+            --roman-red: #8B0000;
+            --roman-gold: #DAA520;
+            --roman-cream: #F5F5F0;
+            --roman-dark: #1A0000;
+            --roman-accent: #A52A2A;
+            --form-bg: rgba(26, 0, 0, 0.7);
+            --input-bg: rgba(255, 255, 255, 0.07);
+            --text-color: #ffffff;
+            --text-muted: #D7CCC8;
+            --border-color: rgba(218, 165, 32, 0.3);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #3E2723, #1A0000);
+            color: var(--text-color);
+            font-family: 'Poppins', Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden; /* Added for animations */
+        }
+        
+        /* Marble background effect */
+        .marble-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        /* Roman column decorations */
+        .column {
+            position: fixed;
+            width: 50px;
+            height: 100%;
+            background-image: linear-gradient(to right, rgba(218, 165, 32, 0.1) 0%, rgba(218, 165, 32, 0.2) 50%, rgba(218, 165, 32, 0.1) 100%);
+            z-index: -1;
+        }
+        
+        .column-left {
+            left: 5%;
+        }
+        
+        .column-right {
+            right: 5%;
+        }
+        
+        .column::before, .column::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(218, 165, 32, 0.2);
+            border-radius: 50%;
+        }
+        
+        .column::before {
+            top: 0;
+            transform: translateY(-50%);
+        }
+        
+        .column::after {
+            bottom: 0;
+            transform: translateY(50%);
+        }
+        
+        /* Roman arch header */
+        .roman-header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .roman-arch {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 175px;
+            border: 3px solid var(--roman-gold);
+            border-bottom: none;
+            border-radius: 150px 150px 0 0;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .site-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--roman-gold);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .site-subtitle {
+            font-style: italic;
+            color: var(--text-muted);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+        }
+        
+        /* Profile Container */
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 20px;
+            position: relative;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        /* Scroll decorations */
+        .scroll-knob {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: var(--roman-gold);
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .scroll-knob-left {
+            left: -5px;
+            top: 0;
+        }
+        
+        .scroll-knob-right {
+            right: -5px;
+            top: 0;
+        }
+        
+        .scroll-edge {
+            position: absolute;
+            top: 20px;
+            height: calc(100% - 40px);
+            width: 15px;
+            background-color: var(--roman-gold);
+            opacity: 0.8;
+            z-index: 1;
+        }
+        
+        .scroll-edge-left {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: inset -5px 0 10px rgba(139, 0, 0, 0.2);
+        }
+        
+        .scroll-edge-right {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset 5px 0 10px rgba(139, 0, 0, 0.2);
+        }
+        
+        .profile-content {
+            background-color: var(--form-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            position: relative; /* Added for corner decorations */
+        }
+        
+        /* Corner decorations */
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-style: solid;
+            border-color: var(--roman-gold);
+            opacity: 0.6;
+        }
+        
+        .corner-top-left {
+            top: 10px;
+            left: 10px;
+            border-width: 3px 0 0 3px;
+            border-radius: 5px 0 0 0;
+        }
+        
+        .corner-top-right {
+            top: 10px;
+            right: 10px;
+            border-width: 3px 3px 0 0;
+            border-radius: 0 5px 0 0;
+        }
+        
+        .corner-bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-width: 0 0 3px 3px;
+            border-radius: 0 0 0 5px;
+        }
+        
+        .corner-bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-width: 0 3px 3px 0;
+            border-radius: 0 0 5px 0;
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--roman-gold);
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--roman-gold), transparent);
+        }
+        
+        /* User profile styling */
+        .user-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .user-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--roman-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+        }
+        
+        .user-name {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--roman-gold);
+            margin-bottom: 5px;
+        }
+        
+        .user-email {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        /* Section styling */
+        .section {
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        .section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--roman-gold);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--roman-gold);
+        }
+        
+        /* Blog and comment card styling */
+        .blog-card, .comment-card {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-card:hover, .comment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .blog-card h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--roman-gold);
+            margin-top: 0;
+        }
+        
+        .blog-card h4 a {
+            color: var(--roman-gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .blog-card h4 a:hover {
+            color: var(--roman-cream);
+        }
+        
+        .blog-card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .comment-meta {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .comment-meta a {
+            color: var(--roman-gold);
+            text-decoration: none;
+        }
+        
+        /* Decorative elements */
+        .decorative-element {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(218, 165, 32, 0.2);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .decorative-element-1 {
+            top: 10%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .decorative-element-2 {
+            bottom: 15%;
+            right: 15%;
+            width: 100px;
+            height: 100px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        /* Animated particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: var(--roman-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float-particle 15s infinite linear;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Media queries */
+        @media (max-width: 992px) {
+            .site-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .column {
+                display: none;
+            }
+            
+            .profile-container {
+                margin: 20px auto;
+            }
+            
+            .roman-arch {
+                width: 200px;
+                height: 100px;
+            }
+            
+            .decorative-element {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .scroll-knob, .scroll-edge {
+                display: none;
+            }
+            
+            .profile-content {
+                padding: 20px;
+            }
+            
+            .roman-header {
+                padding: 1.5rem 0;
+            }
+            
+            .site-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+    <!-- Marble background -->
+    <div class="marble-bg"></div>
+    
+    <!-- Roman columns -->
+    <div class="column column-left"></div>
+    <div class="column column-right"></div>
+    
+    <!-- Animated particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Include navigation -->
+    <%- include('partials/nav') %>
+    
+    <!-- Roman arch header -->
+    <div class="roman-header">
+        <div class="roman-arch"></div>
+        <h1 class="site-title">The Conquerors Chronicle</h1>
+        <p class="site-subtitle">The Conqueror's Persona</p>
+    </div>
+    
+    <!-- User Profile Container -->
+    <div class="profile-container">
+        <!-- Scroll decoration elements -->
+        <div class="scroll-knob scroll-knob-left"></div>
+        <div class="scroll-knob scroll-knob-right"></div>
+        <div class="scroll-edge scroll-edge-left"></div>
+        <div class="scroll-edge scroll-edge-right"></div>
+        
+        <!-- Decorative elements -->
+        <div class="decorative-element decorative-element-1"></div>
+        <div class="decorative-element decorative-element-2"></div>
+        
+        <div class="profile-content">
+            <!-- Decorative corners -->
+            <div class="corner corner-top-left"></div>
+            <div class="corner corner-top-right"></div>
+            <div class="corner corner-bottom-left"></div>
+            <div class="corner corner-bottom-right"></div>
+            
+            <div class="user-header">
+                <img src="<%= user.profileImageURL %>" alt="Profile Image" class="user-image" />
+                <h2 class="user-name"><%= user.fullName %></h2>
+                <p class="user-email"><i class="fas fa-envelope"></i> <%= user.email %></p>
+            </div>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Bio Section -->
+<div class="section">
+    <h3 class="bio-title"><i class="fas fa-user-pen"></i> Origins of , <%= user.fullName %></h3>
+    
+    <% if (user.bio && !showBioForm) { %>
+        <p class="profile-bio"><%= user.bio %></p>
+        <% if (currentUser && currentUser._id.toString() === user._id.toString()) { %>
+            <form method="GET" action="/user/profile/editbio">
+                <button type="submit" class="btn btn-secondary">Edit Bio</button>
+            </form>
+        <% } %>
+    <% } else if (currentUser && currentUser._id.toString() === user._id.toString()) { %>
+        <form method="POST" action="/user/profile/updatebio">
+            <textarea name="bio" rows="4" class="bio-textarea" placeholder="Tell the world about your origins...." required><%= user.bio || "" %></textarea>
+            <button type="submit" class="btn">Save Legacy</button>
+        </form>
+    <% } else { %>
+        <p class="profile-bio">This scribe has yet to pen their tale.</p>
+    <% } %>
+</div>
+
+
+
+
+
+
+
+
+
+
+            <div class="section-title">The Conquerors Chronicles</div>
+            
+            <!-- Blogs Section -->
+            <div class="section">
+                <h3><i class="fas fa-scroll"></i> Conquests by <%= user.fullName %></h3>
+                <% if (blogs && blogs.length > 0) { %>
+                    <% blogs.forEach(blog => { %>
+                        <div class="blog-card">
+                            <h4><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h4>
+                            <% if (blog.coverImageURL) { %>
+                                <img src="<%= blog.coverImageURL %>" alt="Blog Image" />
+                            <% } %>
+                            <!-- <p><%= blog.content ? blog.content.substring(0, 100) + "..." : "No content available." %></p> -->
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>This Conqueror has not penned any conquests yet.</p>
+                <% } %>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="section">
+                <h3><i class="fas fa-comments"></i> Proclamations by <%= user.fullName %></h3>
+                <% if (comments && comments.length > 0) { %>
+                    <% comments.forEach(comment => { %>
+                        <div class="comment-card">
+                            <p><%= comment.content %></p>
+                            <% if (comment.blogId) { %>
+                                <p class="comment-meta">
+                                    <i class="fas fa-feather-alt"></i> on <a href="/blog/<%= comment.blogId._id %>"><%= comment.blogId.title %></a>
+                                    <span>— <%= comment.createdAt.toDateString() %></span>
+                                </p>
+                            <% } else { %>
+                                <p class="comment-meta">
+                                    <i class="fas fa-scroll"></i> Chronicle no longer exists
+                                    <span>— <%= comment.createdAt.toDateString() %></span>
+                                </p>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>This Conqueror has not made any proclamations yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Create animated particles function
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 400; // Reduced for better performance
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random positioning
+                const posX = Math.floor(Math.random() * 100);
+                const posY = Math.floor(Math.random() * 100);
+                const size = Math.floor(Math.random() * 5) + 2;
+                const duration = Math.floor(Math.random() * 10) + 10;
+                const delay = Math.floor(Math.random() * 5);
+                
+                particle.style.left = posX + '%';
+                particle.style.bottom = '-5px';
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.animation = `float-particle ${duration}s infinite linear ${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        window.onload = () => {
+            // Create animated particles
+            createParticles();
+        };
+    </script>
+</body>
+</html> 
