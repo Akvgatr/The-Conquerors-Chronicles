@@ -1,7 +1,9 @@
+require("dotenv").config();
+
+
 const express = require("express");
 const path = require("path");
 
-require("dotenv").config();
 
 const mongoose = require("mongoose");
 
@@ -17,28 +19,19 @@ const app = express();
 // const PORT = 8000;
 const PORT = process.env.PORT || 8000;
 
-// mongoose.connect("mongodb://localhost:27017/bloggatr").then(() => console.log("MongoDB connected"));
 
 
-
-
-// mongoose.connect('mongodb+srv://ghostridefantom:bXmMhnncA9ckJ8p7@cluster0.dlrzbbj.mongodb.net/bloggatr?retryWrites=true&w=majority');
-
-// mongoose.connect(process.env.MONGODB_URI);
-
-
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    ssl: true,
-    tlsAllowInvalidCertificates: false
-  }).then(() => {
-    console.log("MongoDB Atlas connected successfully");
-  }).catch((err) => {
-    console.error("MongoDB connection error:", err);
-  });
   
-  
+mongoose.connect(process.env.MONGO_URL)
+.then(() => {
+  console.log("✅ MongoDB Atlas connected successfully");
+  // Start the server **only after** MongoDB connects
+  app.listen(PORT, () => console.log(`🚀 Server started at ${PORT}`));
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection error:", err);
+});
+
 
 
 
